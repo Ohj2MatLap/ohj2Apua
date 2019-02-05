@@ -56,12 +56,13 @@ bool is_arithmetic_series(std::vector<int> integers){
 bool is_geometric_series(std::vector<int> integers){
     //Palauttaa arvon true, jos peräkkäisten arvojen osamäärä on vakio
     bool first = true;
-    int vakio = integers.at(0)/integers.at(1);
+    int vakio = integers.at(1)/integers.at(0);
     int edeltava_arvo = integers.at(0);
     for(int i : integers){
         if (first)
             { first = false; continue; }
-        if (edeltava_arvo/i==vakio){
+
+        if (edeltava_arvo*vakio==i){
             edeltava_arvo=i;
             continue;}
         else{return false;}
