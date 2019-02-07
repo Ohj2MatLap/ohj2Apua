@@ -61,7 +61,6 @@ bool is_geometric_series(std::vector<int> integers){
     for(int i : integers){
         if (first)
             { first = false; continue; }
-
         if (edeltava_arvo*vakio==i){
             edeltava_arvo=i;
             continue;}
