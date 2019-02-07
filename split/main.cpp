@@ -6,7 +6,9 @@
 #include <sstream>
 #include <algorithm>
 
-
+//Muunneltu versio
+//https://stackoverflow.com/questions/236129/how-do-i-iterate-over-the-words-of-a-string?page=1&tab=votes#tab-top
+//Tosi monimutkanen alkukurssin asioiks.
 
 // TODO: Implement split function here
 // Do not change main function'
