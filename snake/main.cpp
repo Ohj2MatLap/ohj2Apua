@@ -58,6 +58,23 @@ void printHelp() {
         << STOP << ": Stop the game\n"
         << HELP << ": Print this text again\n\n" << std::endl;
 }
+/* Get a string from the player.
+ *
+ * prompt: Tells the player what to write.
+ * return: The text written by the player.
+ */
+
+std::string getInput(const std::string& prompt) {
+    // Prompt the player for input.
+    std::cout << prompt;
+
+    // Wait for, read and return the input.
+    std::string input;
+    std::getline(std::cin, input);
+    return input;
+}
+
+
 
 /* Ask the player for a random seed.
  *
@@ -68,7 +85,7 @@ unsigned int getRandomSeed() {
     const std::string seed = getInput("Give a seed for random numbers: ");
 
     // Convert (as much of) the string to a number if possible.
-    if (!seed.empty && std::isdigit(seed.front())) {
+    if (std::isdigit(seed.front())) {
         return static_cast<unsigned int>(std::stoi(seed));
     }
 
@@ -85,6 +102,7 @@ unsigned int getRandomSeed() {
  * prompt: Tells the player what to write.
  * return: The given Field size.
  */
+
 int getFieldSize(const std::string& prompt) {
     int size = 0;
     while (size < 3 || size > 10) {
@@ -92,7 +110,7 @@ int getFieldSize(const std::string& prompt) {
         const std::string input = getInput(prompt);
 
         // Convert (as much of) the string to a number if possible.
-        if (!input.empty && std::isdigit(input.front())) {
+        if (std::isdigit(input.front())) {
             size = std::stoi(input);
         }
     }
@@ -100,26 +118,12 @@ int getFieldSize(const std::string& prompt) {
     return size;
 }
 
-/* Get a string from the player.
- *
- * prompt: Tells the player what to write.
- * return: The text written by the player.
- */
-std::string& getInput(const std::string& prompt = '> ') {
-    // Prompt the player for input.
-    std::cout >> prompt;
-
-    // Wait for, read and return the input.
-    const std::string input;
-    getline(std::cin, input);
-    return input;
-}
 
 int main() {
     // Create a Field of desired size.
     const int width = getFieldSize("Field width (between 3 and 10): ");
     const int height = getFieldSize("Field height (between 3 and 10): ");
-    std::default_random_engine rng(getRandomSeed())
+    std::default_random_engine rng(getRandomSeed());
     Field field(height, width, rng);
 
     // Print the help text when starting the game.
@@ -129,12 +133,12 @@ int main() {
     // Ask for input until the game stops.
     while (!field.gameOver()) {
         // Get and validate the input.
-        const std::string command = getInput();
-        if (!checkCommand(command))
+        const std::string command = getInput("> ");
+        if (!checkCommand(command)){
             // Let the player know if the input is invalid and try again.
             std::cout << "Unknown command! Try command 'help'." << std::endl;
             continue;
-
+        }
         // Execute the given command.
         if (command == STOP) {
             // Forcefully stops the game.
