@@ -22,17 +22,18 @@
 
 // Define a struct called Point to bundle coordinates together.
 struct Point {
+    int x;
+    int y;
     // These operators are needed when comparing two Points to each other.
-    bool operator==(const Point& rhs) const {
-        return x == rhs.x || y == rhs.y;
+    bool operator ==(const Point& rhs) const {
+        return x == rhs.x && y == rhs.y;
     }
 
-    bool operator!=(const Point& rhs) const {
+    bool operator !=(const Point& rhs) const {
         return x != rhs.x || y != rhs.y;
     }
 
-    int x;
-    int y;
+
 };  // struct Point
 
 // Define constants for directions and other commands.
@@ -61,7 +62,7 @@ public:
      * height: Specifies the field's height.
      * rng: Generates random numbers used to randomize food locations.
      */
-    Field(int width, int height, const std::default_random_engine& rng);
+    Field(int height, int width, const std::default_random_engine& rng);
 
     /* Check if the game is over.
      *
@@ -85,21 +86,28 @@ public:
      *
      * direction: One of constants defined above; Direction to move the head to.
      */
-    void move(const string& direction);
-
-
-private:
+    void move(const std::string& direction);
 
     /* Print the Field and the snake in it.
      */
     void print() const;
+
+
+
+
+
+
+private:
+    // `false` while the snake is alive and able to be moved.
+    bool dead_ = false;
+
 
     /* Check if the snake currently occupies a certain square.
      *
      * square: Coordinates of the square to check.
      * return: `true` if a part of the snake is in the square.
      */
-    bool isInSquare(const Point& square);
+    bool isInSquare(const Point& square) const;
 
     /* Get the snake's head's coordinates.
      *
@@ -117,21 +125,19 @@ private:
      *
      * Hides the food if the snake has completely filled the Field.
      */
-    void moveFood() const;
+
+    void moveFood();
 
     /* Move the snake in some direction, eating anything in its path.
      *
      * If the food got eaten a new one got placed somewhere.
      * The snake also grew a bit.
      */
-    void moveSnake();
+    void moveSnake(const Point& new_head);
 
     /* Print the top or bottom wall of the Field.
      */
     void printHorizontalWall() const;
-
-    // `false` while the snake is alive and able to be moved.
-    const bool dead_ = false;
 
     // Specifies the width and height of the playfield.
     const int width_ = 0;
@@ -145,6 +151,8 @@ private:
 
     // The food item's position in the Field.
     Point food_;
+
+
 
 };  // class Field
 
