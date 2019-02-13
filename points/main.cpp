@@ -45,4 +45,5 @@ int main()
     {
        cout << it->first << ": " << it->second << std::endl;
     }
+    input_file.close();
 }
