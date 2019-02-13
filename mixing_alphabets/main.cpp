@@ -20,7 +20,6 @@ int main()
         {
             return EXIT_SUCCESS;
         }
-
         // TODO: implement your solution here
         cut_word = word.substr(1,word.length()-2);
         shuffle(cut_word.begin(), cut_word.end(),generator);
