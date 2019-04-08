@@ -1,0 +1,20 @@
+18;12
+Tree;13;4;340;T
+Big rock;1;2;550;O
+Small rock;4;7;200;o
+Cliff;9;1;780;C
+Marking;16;12;570;M
+Birches;2;6;750;B
+Hut;17;3;260;H
+Boulder;9;9;890;D
+Pond north;5;2;240;N
+Pond south;5;3;240;S
+Field corner west;8;10;700;W
+Field corner east;13;10;670;E
+Flag;3;10;700;F
+Goal 1;1;12;400;1
+Goal 2;18;1;340;2
+ROUTES
+Short;Marking;Field corner east;Tree;Hut;Goal 2
+Western;Cliff;Pond south;Big rock;Birches;Small rock;Field corner west;Goal 1
+Marathon;Field corner east;Hut;Tree;Cliff;Pond north;Boulder;Small rock;Flag;Goal 1
