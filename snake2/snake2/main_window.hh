@@ -13,7 +13,7 @@
 # File: main_window.hh                                             #
 # Description: Declares a class implementing a UI for the game.    #
 #                                                                  #
-# Author: First Last, student#, first.last@tuni.fi                 #
+# Author: Matias Lappalainen, 275852, matias.a.lappalainen@tuni.fi                 #
 ####################################################################
 */
 
@@ -95,9 +95,9 @@ private slots:
      */
     void reset();
 
-
-
-
+    /* \brief pause game
+     */
+    void on_pause_clicked();
 
 private:
 
@@ -109,18 +109,20 @@ private:
 
     std::vector<point> snake_body_points;
 
-    int move_x_direction = 0;
-    int move_y_direction = 1;
-    int food_x = 3;
-    int food_y = 3;
-    int snake_head_x = 2;
-    int snake_head_y = 2;
-    bool game_over = false;
-    int moves = 0;
-    int map_x_length = 8;
-    int map_y_length = 8;
-    bool move_done = true;
-    bool restarted = false;
+    int move_x_direction = 0;//X move aggerelation
+    int move_y_direction = 1;//Y move aggerelation
+    int food_x = 1;//Food x coordinate
+    int food_y = 1;//Food y coordinate
+    int snake_head_x = 2;//snake_head_x coordinate
+    int snake_head_y = 2;//snake_head_y coordinate
+    bool game_over = false;//Is game over
+    int moves = 0;//Amount of moves
+    int map_x_length = 7;//map x length
+    int map_y_length = 7;//map y length
+    bool move_done = true;//snake moved. Disables multiple fast movements
+    bool restarted = false;//Has game been restarted
+    bool paused = false;//Is game paused
+    int timer = 500; //speed;
 
     Ui::MainWindow ui_;                 /**< Accesses the UI widgets. */
     QGraphicsRectItem* food_ = nullptr; /**< The food item in the scene. */
@@ -128,7 +130,7 @@ private:
     QTimer timer_;                      /**< Triggers the Snake to move. */
     std::default_random_engine rng_;    /**< Randomizes food locations. */
     QGraphicsRectItem* snake_body_ = nullptr; /**< snake head location. */
-    QGraphicsRectItem* empty_ = nullptr; /**< snake head location. */
+    QGraphicsRectItem* empty_ = nullptr; /**< empty square. */
 
 };  // class MainWindow
 

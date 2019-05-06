@@ -1,0 +1,21 @@
+Ohje!
+
+Matias Lappalainen 275852
+
+Matopeli
+
+Peli käynnistyy painamalla start.
+Matoa liikutetaan aswd näppäimillä.
+Punainen on ruokaa.
+Vihreä madon pää.
+Musta madon keho.
+Valkoinen peli ruudukkoa.
+Pelin loputtua näkee onko voittanut (pelilauta täynnä) vaiko hävinnyt (Mato törmännyt itseensä)
+
+Lisäominaisuudet
+-Mato ei törmääkään pelialueen reunaan, vaan kiertää takakautta takaisin pelialueelle. (10 p.)
+-Pelissä on Restart-nappula, jolla pelin voi aloittaa uudelleen. (5 p.)
+--Play nappula muuttuu restart-nappulaksi pelin käynnistyttyä.
+-Pelissä on Pause-nappula, jolla pelin voi tauottaa. (5 p.)
+-Pelinopeutuu 1ms liikkeeltä
+-Kuollessa mato vaihtaa väriä siniseksi (Päätummansininen).

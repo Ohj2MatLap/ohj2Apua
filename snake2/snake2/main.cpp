@@ -13,14 +13,35 @@
 # File: main.cpp                                                   #
 # Description: Starts executing the program.                       #
 #                                                                  #
-# Author: First Last, student#, first.last@tuni.fi                 #
+# Author: Matias Lappalainen, 275852, matias.a.lappalainen@tuni.fi  #
 ####################################################################
 */
 
 #include "main_window.hh"
 #include <QApplication>
 
+/*
+ * Ohje!
 
+Matias Lappalainen 275852
+
+Matopeli
+
+Peli käynnistyy painamalla start.
+Matoa liikutetaan aswd näppäimillä.
+Punainen on ruokaa.
+Vihreä madon pää.
+Musta madon keho.
+Valkoinen peli ruudukkoa.
+Pelin loputtua näkee onko voittanut (pelilauta täynnä) vaiko hävinnyt (Mato törmännyt itseensä)
+
+Lisäominaisuudet
+-Mato ei törmääkään pelialueen reunaan, vaan kiertää takakautta takaisin pelialueelle. (10 p.)
+-Pelissä on Restart-nappula, jolla pelin voi aloittaa uudelleen. (5 p.)
+--Play nappula muuttuu restart-nappulaksi pelin käynnistyttyä.
+-Pelissä on Pause-nappula, jolla pelin voi tauottaa. (5 p.)
+-Kuollessa mato vaihtaa väriä siniseksi (Pää tummansininen).
+*/
 int main(int argc, char** argv) {
     QApplication a(argc, argv);
     MainWindow w;

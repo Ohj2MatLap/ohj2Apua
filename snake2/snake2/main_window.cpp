@@ -67,6 +67,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
 
 void MainWindow::on_playButton_clicked() {
         ui_.playButton->setText("Restart");
+        ui_.lopputulos->setText("Playing...");
         game_over = false;
         reset();
         snake_body_points = {};
@@ -96,28 +97,48 @@ void MainWindow::on_playButton_clicked() {
 void MainWindow::reset(){
     move_x_direction = 0;
     move_y_direction = 1;
-    food_x = 3;
-    food_y = 3;
+    food_x = 1;
+    food_y = 1;
     snake_head_x = 2;
     snake_head_y = 2;
     game_over = false;
     moves = 0;
-    map_x_length = 8;
-    map_y_length = 8;
     move_done = true;
     game_over = false;
     restarted = false;
+    paused=false;
+    timer = 500;
 }
 
 void MainWindow::moveSnake() {
-    moves+=1;
+    timer = timer - 1;
+            timer_.start(timer);
+    if(paused==false){
+        moves+=1;
+        bool winner = false;
+    if(snake_body_points.size()==(unsigned)map_x_length*map_y_length-2){
+        game_over = true;
+        ui_.lopputulos->setText("Winner! (all squares full after next move)");
+        const QRectF empty_square(0, 0, 1, 1);
+        const QBrush brush_cyan(Qt::darkCyan);
+        const QPen pen(Qt::white, 0);
+        for(int a = 0; a<map_x_length;a++){
+            for(int i = 0; i<map_y_length;i++){
+                    empty_ = scene_.addRect(empty_square, pen, brush_cyan);
+                    empty_->setPos(a, i);
+            }
+        }
+        winner = true;
+    }
     if(game_over==false){
     snake_head_x+=move_x_direction;
     snake_head_y+=move_y_direction;
     bool snake_ate = snake_eat_food();//Check if snake top of food. return true if top of food
     draw_snake();
-    draw_food();
-    check_snake(snake_ate);
+    if(game_over==false){
+        draw_food();
+        check_snake(snake_ate);
+    }
     if(game_over==false){snake_body_points.pop_back();//Delete snake tail
     }
     move_done = true;
@@ -125,6 +146,9 @@ void MainWindow::moveSnake() {
     ui_.timer->setText("Timer (seconds): "+QString::number(moves/2));
     }
     else{
+        if(winner==false){
+            ui_.lopputulos->setText("Loser!");
+        }
         bool head_drew = false;
         for(auto i : snake_body_points){
             if(head_drew==false){
@@ -143,6 +167,7 @@ void MainWindow::moveSnake() {
                 empty_->setPos(i.x, i.y);
             }
         }
+    }
     }
 }
 
@@ -208,21 +233,35 @@ void MainWindow::draw_snake(){
 bool MainWindow::snake_eat_food(){
     if(food_x==snake_head_x && food_y==snake_head_y){
         add_body_parts();
-        bool square_found = false;
         srand(time(NULL));
-        while(square_found==false){
+        int food_old_x = food_x;
+        int food_old_y = food_y;
+        while(true){
+            if((unsigned)map_x_length*map_y_length-2==snake_body_points.size()){
+                const QRectF empty_square(0, 0, 1, 1);
+                const QBrush brush_cyan(Qt::darkCyan);
+                const QPen pen(Qt::white, 0);
+                for(int a = 0; a<map_x_length;a++){
+                    for(int i = 0; i<map_y_length;i++){
+                            empty_ = scene_.addRect(empty_square, pen, brush_cyan);
+                            empty_->setPos(a, i);
+                    }
+                }
+                return true;
+            }
+            bool square_found = true;
          /* generate secret number between 1 and map size: */
-         food_x = rand() % 6+1;
+         food_x = rand() % (map_x_length);
          /* generate secret number between 1 and map size: */
-         food_y = rand() % 6+1;
+         food_y = rand() % (map_y_length);
          for(auto i : snake_body_points){
               if(i.x==food_x && i.y==food_y){
                   square_found=false;
                   break;
               }
-              else if(snake_head_x!=food_x && snake_head_y!=food_y){square_found=true;}
           }
-         if(square_found){
+
+         if(square_found&&(food_old_x!=food_x&&food_old_y!=food_y)){
                 food_->setPos(food_x, food_y);
                 return true;
          }
@@ -242,4 +281,14 @@ void MainWindow::adjustSceneArea() {
     const QRectF area(0, 0, map_x_length, map_y_length);
     scene_.setSceneRect(area);
     ui_.graphicsView->fitInView(area);
+}
+
+void MainWindow::on_pause_clicked()
+{
+    if(paused){
+        ui_.lopputulos->setText("Playing...");
+        paused=false;
+    }else{paused=true;
+        ui_.lopputulos->setText("Paused...");
+    }
 }
