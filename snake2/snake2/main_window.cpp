@@ -169,7 +169,14 @@ void MainWindow::check_snake(bool snake_ate){
 }
 
 void MainWindow::draw_snake(){
-    if(snake_head_x >= 0 && snake_head_y >= 0 && snake_head_x <= map_x_length-1 && snake_head_y <= map_y_length-1){
+    if(snake_head_x>=map_x_length){snake_head_x=0;
+    }
+    if(snake_head_y>=map_y_length){snake_head_y=0;
+    }
+    if(snake_head_x<0){snake_head_x=map_x_length-1;
+    }
+    if(snake_head_y<0){snake_head_y=map_y_length-1;
+    }
         snake_body_points.insert(snake_body_points.begin(),point{snake_head_x,snake_head_y});
         const QRectF empty_square(0, 0, 1, 1);
         const QBrush brush_white(Qt::white);
@@ -195,8 +202,7 @@ void MainWindow::draw_snake(){
                 snake_body_->setPos(part.x, part.y);
             }
         }
-    }
-    else{game_over=true;}
+
 }
 
 bool MainWindow::snake_eat_food(){

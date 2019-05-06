@@ -83,8 +83,8 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>201</width>
-      <height>81</height>
+      <width>151</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -99,10 +99,10 @@
    <widget class="QLabel" name="timer">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>10</y>
-      <width>221</width>
-      <height>71</height>
+      <x>20</x>
+      <y>40</y>
+      <width>141</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
